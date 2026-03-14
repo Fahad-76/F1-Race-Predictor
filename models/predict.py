@@ -154,8 +154,12 @@ def build_features(times_df, grid_df, track_id):
     df = compute_deltas(df)
     df = compute_grid_penalty(df)
 
-    return df
+    #Sprint weekends skip FP2/FP3: fill missing delta cols with NaN
+    for col in ['fp2_delta', 'fp3_delta']:
+        if col not in df.columns:
+            df[col] = np.nan
 
+    return df
 
 #Monte Carlo Simulation - to get a better predicted value
 
